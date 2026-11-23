@@ -1,0 +1,41 @@
+# Operating system and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Dependencies
+node_modules/
+vendor/
+
+# Generated desktop artifacts
+release/
+release-*/
+.qa*/
+weighbrige/
+*.exe
+*.msi
+*.zip
+
+# Generated web artifacts and runtime data
+WEB/build/
+WEB/public/build/
+WEB/public/storage/
+WEB/database/*.sqlite
+WEB/bootstrap/cache/*.php
+WEB/storage/framework/cache/**
+WEB/storage/framework/sessions/**
+WEB/storage/framework/testing/**
+WEB/storage/framework/views/**
+WEB/storage/logs/**
+
+# Logs and test caches
+*.log
+.phpunit.result.cache
+.phpunit.cache/

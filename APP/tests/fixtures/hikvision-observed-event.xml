@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EventNotificationAlert xmlns="http://www.hikvision.com/ver20/XMLSchema">
+  <dateTime>2026-11-18T15:50:01+05:30</dateTime>
+  <eventType>ANPR</eventType>
+  <eventState>active</eventState>
+  <ANPR><licensePlate>MC494S</licensePlate></ANPR>
+  <UUID>simulated-event-id</UUID>
+</EventNotificationAlert>

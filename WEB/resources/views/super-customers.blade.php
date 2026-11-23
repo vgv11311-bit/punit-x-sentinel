@@ -1,0 +1,17 @@
+@extends('layouts.app')
+@section('title','Customer administration')
+@section('content')
+<div class="page-heading"><div><span class="eyebrow">Super administrator</span><h1>Customer access</h1><p>Create customer administrators, set expiry dates and control access.</p></div></div>
+<details class="panel form-card" style="margin-bottom:20px"><summary>Change super-admin password</summary><form method="POST" action="{{ route('super.password') }}">@csrf<div class="field-grid"><label>Current password<input type="password" name="current_password" autocomplete="current-password" required></label><label>New password<input type="password" name="new_password" minlength="12" autocomplete="new-password" required></label><label>Confirm new password<input type="password" name="new_password_confirmation" minlength="12" autocomplete="new-password" required></label></div><button class="button secondary" type="submit">Change password</button></form></details>
+<section class="panel form-card"><h2>New customer</h2><form method="POST" action="{{ route('super.customers.store') }}">@csrf<div class="field-grid">
+<label>Customer name<input name="name" required maxlength="120"></label><label>Administrator name<input name="admin_name" required maxlength="120"></label>
+<label>Login email<input type="email" name="email" required></label><label>Initial password<input type="password" name="password" minlength="12" required autocomplete="new-password"></label>
+<label>Access through date<input type="date" name="expires_on" required></label></div><button class="button primary" type="submit">Create customer</button></form></section>
+@foreach($customers as $customer)
+<section class="panel form-card" style="margin-top:20px"><h2>{{ $customer->name }}</h2><p>{{ $customer->isAvailable() ? 'Active' : 'Disabled or expired' }}</p>
+<form method="POST" action="{{ route('super.customers.update',$customer) }}">@csrf @method('PUT')<div class="field-grid"><label>Customer name<input name="name" value="{{ $customer->name }}" required></label><label>Access through date (empty means no expiry)<input type="date" name="expires_on" value="{{ $customer->expires_on?->format('Y-m-d') }}"></label><label class="check-line"><input type="hidden" name="enabled" value="0"><input type="checkbox" name="enabled" value="1" @checked($customer->enabled)><span>Customer access on</span></label></div><button class="button primary" type="submit">Save access</button></form>
+<h3>Administrators</h3>@foreach($customer->users as $user)<form method="POST" action="{{ route('super.customers.admins.rename',[$customer,$user]) }}" style="display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:10px 0">@csrf @method('PATCH')<label>Name<input name="name" value="{{ $user->name }}" required maxlength="120"></label><span>{{ $user->email }} · {{ $user->role }}</span><button class="button secondary" type="submit">Save name</button></form>@endforeach
+<details><summary>Add administrator</summary><form method="POST" action="{{ route('super.customers.admins',$customer) }}">@csrf<div class="field-grid"><label>Name<input name="name" required></label><label>Email<input type="email" name="email" required></label><label>Initial password<input type="password" name="password" minlength="12" required autocomplete="new-password"></label></div><button class="button secondary" type="submit">Create administrator</button></form></details>
+</section>
+@endforeach
+@endsection

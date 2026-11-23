@@ -1,0 +1,7 @@
+node_modules/
+release/
+release-*/
+.qa*/
+weighbrige/
+*.log
+.DS_Store

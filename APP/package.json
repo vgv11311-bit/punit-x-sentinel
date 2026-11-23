@@ -1,0 +1,59 @@
+{
+  "name": "sentinel-weighbridge-desktop",
+  "version": "1.5.11",
+  "description": "Desktop vehicle weighment application for gross, tare, and net weight workflows",
+  "author": "Sentinel",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "test": "node --test tests/*.test.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win zip",
+    "dist:single-exe": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "in.sentinel.weighbridge",
+    "productName": "Sentinel Weighbridge",
+    "npmRebuild": false,
+    "asarUnpack": [
+      "node_modules/tesseract.js/**",
+      "node_modules/tesseract.js-core/**",
+      "node_modules/@tesseract.js-data/**"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^39.2.0",
+    "electron-builder": "^26.0.12",
+    "jsdom": "^31.0.0"
+  },
+  "optionalDependencies": {
+    "serialport": "^13.0.0"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@xmldom/xmldom": "^0.8.15",
+    "busboy": "^1.6.0",
+    "tesseract.js": "^7.0.0"
+  },
+  "overrides": {
+    "wasm-feature-detect": "1.8.0"
+  }
+}

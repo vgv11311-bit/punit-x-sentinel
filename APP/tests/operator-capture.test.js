@@ -1,0 +1,5 @@
+"use strict";
+const test=require("node:test");const assert=require("node:assert/strict");
+const {createOperatorCaptureController}=require("../src/operator-capture");
+test("operator capture uses a unique session and blocks simultaneous captures",async()=>{let release;let i=0;const pending=new Promise(resolve=>{release=resolve});const calls=[];const c=createOperatorCaptureController({newSessionId:()=>`s${++i}`,capture:async request=>{calls.push(request);await pending;return request}});const first=c.capture();assert.equal(c.busy,true);await assert.rejects(c.capture(),/already in progress/);release();assert.deepEqual(await first,{id:"s1",maxSkewMs:1000});assert.equal(c.busy,false);assert.equal((await c.capture()).id,"s2");});
+test("operator capture permits a retry after an error",async()=>{let n=0;const c=createOperatorCaptureController({capture:async()=>{if(++n===1)throw new Error("device offline");return "ok"}});await assert.rejects(c.capture(),/offline/);assert.equal(c.busy,false);assert.equal(await c.capture(),"ok");});

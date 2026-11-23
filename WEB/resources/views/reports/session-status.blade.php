@@ -1,0 +1,1 @@
+<div class="panel" style="padding:14px 20px;margin-bottom:18px"><strong>Last report login:</strong> {{ session('reports_last_login') ? \Carbon\Carbon::parse(session('reports_last_login'))->format('d M Y, h:i A') : 'Not yet unlocked' }} <span style="margin-left:12px">Access stays unlocked in this tab.</span></div>

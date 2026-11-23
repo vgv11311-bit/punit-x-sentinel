@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;" />
+    <title>Sentinel Weighbridge</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">S</div>
+          <div><strong>SENTINEL</strong><span>Weighbridge</span></div>
+        </div>
+        <nav id="navigation" class="navigation" aria-label="Main navigation">
+          <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span><span>Overview</span></button>
+          <button class="nav-item" data-view="gross"><span class="nav-icon">G</span><span>Gross Weighment</span></button>
+          <button class="nav-item" data-view="tare"><span class="nav-icon">T</span><span>Tare Weighment</span><span id="pendingBadge" class="nav-badge">0</span></button>
+          <button class="nav-item" data-view="completed"><span class="nav-icon">✓</span><span>Completed</span></button>
+          <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span><span>Camera &amp; Scale</span></button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sync-card"><span class="status-dot"></span><div><strong>Local data ready</strong><span>Web API configurable</span></div></div>
+          <div class="profile"><div class="avatar">PO</div><div><strong id="operatorName">Operator</strong><span id="operatorRole">Weighbridge</span></div></div>
+        </div>
+      </aside>
+      <main class="main-area">
+        <header class="topbar">
+          <div><p class="eyebrow">OPERATIONS CONSOLE</p><h1 id="pageTitle">Overview</h1></div>
+          <div class="topbar-actions"><div class="clock"><span id="clockDate"></span><strong id="clockTime"></strong></div><button id="newGrossButton" class="button primary">+ New Gross</button></div>
+        </header>
+        <section id="content" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+    <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
